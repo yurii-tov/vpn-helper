@@ -1,4 +1,4 @@
-(defvar *vpn-settings*)
+(defvar *vpn-buffer*)
 (defvar *vpn-server*)
 (defvar *vpn-password*)
 
