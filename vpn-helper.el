@@ -34,7 +34,7 @@
 
 
 (defmacro define-vpn-command (name command)
-  `(defun ,name ()
+  `(defun ,(intern (concat "vpn-" (symbol-name name))) ()
      (interactive)
      (vpn-erase-buffer)
      (make-process :name ,(concat "vpn-" (symbol-name name))
@@ -47,11 +47,11 @@
 
 
 (define-vpn-command connect
-  '("bash" "-c"
-    (format "echo '%s' | '%s' -s connect %s && mstsc connect.rdp"
-            vpn-password
-            vpn-cli-exe
-            vpn-server)))
+  (list "bash" "-c"
+        (format "echo '%s' | '%s' -s connect %s && mstsc connect.rdp"
+                vpn-password
+                vpn-cli-exe
+                vpn-server)))
 
 
 (define-vpn-command disconnect (cons vpn-cli-exe '("disconnect")))
