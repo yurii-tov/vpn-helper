@@ -40,7 +40,16 @@
      (make-process :name ,(concat "vpn-" (symbol-name name))
                    :buffer vpn-buffer
                    :command ,command
-                   :coding '(utf-8-dos . utf-8-dos))))
+                   :coding '(utf-8-unix . utf-8-unix)
+                   :filter (lambda (proc string)
+                             (when (buffer-live-p (process-buffer proc))
+                               (with-current-buffer (process-buffer proc)
+                                 (let ((moving (= (point) (process-mark proc))))
+                                   (save-excursion
+                                     (goto-char (process-mark proc))
+                                     (insert (replace-regexp-in-string "" "" string))
+                                     (set-marker (process-mark proc) (point)))
+                                   (if moving (goto-char (process-mark proc))))))))))
 
 
 (define-vpn-command status (cons vpn-cli-exe '("status")))
