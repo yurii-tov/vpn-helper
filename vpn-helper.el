@@ -57,10 +57,12 @@
 
 (define-vpn-command connect
   (list "bash" "-c"
-        (format "echo '%s' | '%s' -s connect %s && mstsc connect.rdp"
+        (format "echo '%s' | '%s' -s connect %s && mstsc connect.rdp & sleep 3s ; figlet 'CONNECTED'; echo 'Press [D] to disconnect'"
                 vpn-password
                 vpn-cli-exe
                 vpn-server)))
 
 
-(define-vpn-command disconnect (cons vpn-cli-exe '("disconnect")))
+(define-vpn-command disconnect
+  (list "bash" "-c"
+        (format "'%s' disconnect ; figlet 'DISCONNECTED'; echo 'Press [C] to connect'" vpn-cli-exe)))
