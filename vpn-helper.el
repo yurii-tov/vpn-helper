@@ -28,15 +28,10 @@
     (vpn-status)))
 
 
-(defun vpn-erase-buffer ()
-  (with-current-buffer vpn-buffer
-    (erase-buffer)))
-
-
 (defmacro define-vpn-command (name command)
   `(defun ,(intern (concat "vpn-" (symbol-name name))) ()
      (interactive)
-     (vpn-erase-buffer)
+     (erase-buffer)
      (make-process :name ,(concat "vpn-" (symbol-name name))
                    :buffer vpn-buffer
                    :command ,command
