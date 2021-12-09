@@ -12,6 +12,7 @@
 (progn
   (define-key vpn-mode-map (kbd "c") 'vpn-connect)
   (define-key vpn-mode-map (kbd "d") 'vpn-disconnect)
+  (define-key vpn-mode-map (kbd "r") 'vpn-reconnect)
   (define-key vpn-mode-map (kbd "s") 'vpn-status))
 
 
@@ -61,3 +62,12 @@
 (define-vpn-command disconnect
   (list "bash" "-c"
         (format "'%s' disconnect ; figlet 'DISCONNECTED'; echo 'Press [C] to connect'" vpn-cli-exe)))
+
+
+(define-vpn-command reconnect
+  (list "bash" "-c"
+        (format "'%s' disconnect ; echo '%s' | '%s' -s connect %s && mstsc connect.rdp & sleep 3s ; figlet 'CONNECTED'; echo 'Press [D] to disconnect'"
+                vpn-cli-exe
+                vpn-password
+                vpn-cli-exe
+                vpn-server)))
