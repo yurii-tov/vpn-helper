@@ -71,3 +71,6 @@
                 vpn-password
                 vpn-cli-exe
                 vpn-server)))
+
+
+(define-key global-map (kbd "C-c v") 'run-vpn)
