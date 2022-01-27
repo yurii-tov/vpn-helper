@@ -73,4 +73,4 @@
                 vpn-server)))
 
 
-(define-key global-map (kbd "C-c v") 'run-vpn)
+(define-key global-map (kbd "C-c t") 'run-vpn)
