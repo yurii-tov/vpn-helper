@@ -26,7 +26,7 @@
          (vpn-buffer (format "*vpn:%s*" vpn-server)))
     (switch-to-buffer vpn-buffer)
     (vpn-mode)
-    (vpn-connect)))
+    (vpn-disconnect)))
 
 
 (defmacro define-vpn-command (name command)
