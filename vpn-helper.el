@@ -1,12 +1,12 @@
-(defvar *vpn-buffer*)
-(defvar *vpn-server*)
-(defvar *vpn-password*)
+(defvar vpn-buffer)
+(defvar vpn-server)
+(defvar vpn-password)
 
 
 (define-derived-mode vpn-mode nil "vpn-helper"
-  (setq-local vpn-buffer *vpn-buffer*)
-  (setq-local vpn-server *vpn-server*)
-  (setq-local vpn-password *vpn-password*))
+  (setq-local vpn-buffer vpn-buffer)
+  (setq-local vpn-server vpn-server)
+  (setq-local vpn-password vpn-password))
 
 
 (progn
@@ -21,10 +21,10 @@
 
 (defun run-vpn ()
   (interactive)
-  (let* ((*vpn-server* (read-string "Vpn server: "))
-         (*vpn-password* (read-passwd "Vpn Password: "))
-         (*vpn-buffer* (format "*vpn:%s*" *vpn-server*)))
-    (switch-to-buffer *vpn-buffer*)
+  (let* ((vpn-server (read-string "Vpn server: "))
+         (vpn-password (read-passwd "Vpn Password: "))
+         (vpn-buffer (format "*vpn:%s*" vpn-server)))
+    (switch-to-buffer vpn-buffer)
     (vpn-mode)
     (vpn-connect)))
 
